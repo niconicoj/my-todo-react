@@ -1,15 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
 
-const App: React.FC = () => {
+import TodoService from './components/services/TodoService'
+
+const App = () => {
+  const service = TodoService()
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        {service.status === 'loading' && <div>Loading...</div>}
+        {service.status === 'loaded' && <div>{service.payload.message}</div>}
+        {service.status === 'error' && (
+          <div>Error, the backend moved to the dark side.</div>
+        )}
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -20,7 +26,7 @@ const App: React.FC = () => {
         </a>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
