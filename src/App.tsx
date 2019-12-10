@@ -20,8 +20,8 @@ import { TodoProps } from './types/Todo';
 let theme = createMuiTheme({
   palette: {
     type: 'dark',
-    primary: { main: '#7E57C2' },
-    secondary: { main: '#F06292' }
+    primary: { main: '#b39ddb' },
+    secondary: { main: '#c5db9d' }
   },
 });
 
