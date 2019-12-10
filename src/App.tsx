@@ -20,8 +20,21 @@ import { TodoProps } from './types/Todo';
 let theme = createMuiTheme({
   palette: {
     type: 'dark',
-    primary: { main: '#b39ddb' },
-    secondary: { main: '#c5db9d' }
+    primary: { main: '#ab47bc' },
+    secondary: { main: '#8bc34a' },
+    error: { main: '#ef5350' }
+  },
+  typography: {
+    fontFamily: [
+      'Rubik',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
   },
 });
 

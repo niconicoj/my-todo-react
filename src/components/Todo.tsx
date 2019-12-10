@@ -1,17 +1,14 @@
 import React, { FunctionComponent } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { 
-  IconButton, 
   Grid, 
   Typography, 
   CardContent, 
   Card,
-  ButtonGroup,
-  Divider} from '@material-ui/core';
-import { PlayCircleOutline, MoreVertTwoTone, CheckCircleOutline } from '@material-ui/icons';
-import { green } from '@material-ui/core/colors';
+  Box} from '@material-ui/core';
 
 import { TodoProps } from '../types/Todo';
+import TodoActionGroup from './TodoActionGroup'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   card: {
@@ -27,19 +24,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    margin: 14,
   },
   pos: {
     marginBottom: 12,
-  },
-  divider: {
-    alignSelf: 'stretch',
-    height: 'auto',
-    minWidth: '0px'
-  },
-  actionBox: {
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: '50px'
   }
 }));
 
@@ -51,24 +39,19 @@ const Todo: FunctionComponent<TodoProps> = ({...todo}) => {
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Grid item>
-            <Typography variant="h5" component="h2">
+            <Typography variant="h5" component="h2" className={classes.title}>
               {todo.title}
             </Typography>
           </Grid>
           <Grid item>
-            <ButtonGroup size="large" aria-label="small outlined button group" className={classes.actionBox}>
-              <IconButton aria-label="start">
-                <PlayCircleOutline fontSize="large" color="secondary" />
-              </IconButton>
-              <Divider orientation="vertical" className={classes.divider}/>
-              <IconButton aria-label="actions">
-                <CheckCircleOutline fontSize="large" color="primary"/>
-              </IconButton>
-              <Divider orientation="vertical" className={classes.divider}/>
-              <IconButton aria-label="actions">
-                <MoreVertTwoTone fontSize="large"/>
-              </IconButton>
-            </ButtonGroup>
+            <Typography variant="h4" component="h3" className={classes.title}>
+              <Box fontFamily="Monospace">
+              00:00:00
+              </Box>
+            </Typography>
+          </Grid>
+          <Grid item>
+            <TodoActionGroup />
           </Grid>
         </Grid>
       </CardContent>
