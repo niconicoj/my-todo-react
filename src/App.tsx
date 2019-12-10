@@ -1,32 +1,86 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+import {
+  createMuiTheme,
+  createStyles,
+  ThemeProvider,
+  withStyles,
+  WithStyles,
+} from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
-import TodoService from './components/services/TodoService'
+import Todo from './components/Todo'
+import { TodoProps } from './types/Todo';
 
-const App = () => {
-  const service = TodoService()
+let theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: { main: '#7E57C2' },
+    secondary: { main: '#F06292' }
+  },
+});
+
+const styles = createStyles({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+});
+
+
+
+export interface AppProps extends WithStyles<typeof styles> {}
+
+const App = (props: AppProps) => {
+
+  const { classes } = props;
+  let todos: TodoProps[];
+  todos = [
+    {
+      id: '5dee4c10b1dadd22102a0c6d',
+      status: 'planned',
+      title: 'My 1st todo',
+      elapsed: 0
+    },
+    {
+      id: '5dee4d4cb1dadd22102a0c6f',
+      status: 'inProgress',
+      title: 'My 2nd todo',
+      elapsed: 0
+    },
+  ];
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {service.status === 'loading' && <div>Loading...</div>}
-        {service.status === 'loaded' && <div>{service.payload.message}</div>}
-        {service.status === 'error' && (
-          <div>Error, the backend moved to the dark side.</div>
-        )}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+    <ThemeProvider theme={theme}>
+      <div className={classes.root}>
+        <AppBar position="static">
+          <CssBaseline />
+          <Toolbar>
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.title}>
+              My Todo
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+        {todos.map( todo => (
+          <Todo key={todo.id} id={todo.id} status={todo.status} title={todo.title} elapsed={todo.elapsed}/>
+        ))}
+      </div>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default withStyles(styles)(App);
