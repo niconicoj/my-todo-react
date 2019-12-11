@@ -14,8 +14,9 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import Todo from './components/Todo'
-import { TodoProps } from './types/Todo';
+import Todo from './components/Todo';
+import AddTodoFAB from './components/AddtodoFAB';
+import ITodo from './models/Todo';
 
 let theme = createMuiTheme({
   palette: {
@@ -57,7 +58,7 @@ export interface AppProps extends WithStyles<typeof styles> {}
 const App = (props: AppProps) => {
 
   const { classes } = props;
-  let todos: TodoProps[];
+  let todos: ITodo[];
   todos = [
     {
       id: '5dee4c10b1dadd22102a0c6d',
@@ -91,6 +92,7 @@ const App = (props: AppProps) => {
         {todos.map( todo => (
           <Todo key={todo.id} id={todo.id} status={todo.status} title={todo.title} elapsed={todo.elapsed}/>
         ))}
+        <AddTodoFAB />
       </div>
     </ThemeProvider>
   );

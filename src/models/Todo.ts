@@ -1,5 +1,5 @@
 
-export type TodoProps = {
+export default interface ITodo {
   id: string
   status: 'planned'|'inProgress'|'finished',
   title: string,

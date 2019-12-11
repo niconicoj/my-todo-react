@@ -7,7 +7,7 @@ import {
   Card,
   Box} from '@material-ui/core';
 
-import { TodoProps } from '../types/Todo';
+import ITodo from '../models/Todo';
 import TodoActionGroup from './TodoActionGroup'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const Todo: FunctionComponent<TodoProps> = ({...todo}) => {
+const Todo: FunctionComponent<ITodo> = ({...todo}) => {
   const classes = useStyles();
 
   return (
@@ -46,7 +46,7 @@ const Todo: FunctionComponent<TodoProps> = ({...todo}) => {
           <Grid item>
             <Typography variant="h4" component="h3" className={classes.title}>
               <Box fontFamily="Monospace">
-              00:00:00
+                00:00:00
               </Box>
             </Typography>
           </Grid>
