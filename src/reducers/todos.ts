@@ -7,7 +7,12 @@ export interface State {
 }
 
 export const initialState: State = {
-  todos: []
+  todos: [{
+    id: '1234',
+    status: 'inProgress',
+    title: 'todo in state',
+    elapsed: 0
+  }]
 }
 
 export function todoReducer(state: State = initialState, action: TodoAction) {

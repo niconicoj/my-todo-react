@@ -14,8 +14,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const TodoActionGroup: FunctionComponent = () => {
+interface Props {
+  onDelete: (id: string) => void
+}
+
+const TodoActionGroup: FunctionComponent<Props> = ({...props}) => {
   const classes = useStyles();
+  const { onDelete } = props
 
   return (
     <div className={classes.actionBox}>
@@ -30,7 +35,7 @@ const TodoActionGroup: FunctionComponent = () => {
         </IconButton>
       </Tooltip>
       <Tooltip TransitionComponent={Zoom} title="delete">
-        <IconButton aria-label="delete">
+        <IconButton aria-label="delete" onClick={(e) => {console.log(e)}}>
           <DeleteForeverOutlined fontSize="large" color="error" />
         </IconButton>
       </Tooltip>

@@ -9,6 +9,7 @@ import {
 
 import ITodo from '../models/Todo';
 import TodoActionGroup from './TodoActionGroup'
+import { todoReducer } from '../reducers/todos';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   card: {
@@ -31,8 +32,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }));
 
-const Todo: FunctionComponent<ITodo> = ({...todo}) => {
+interface Props {
+  todo: ITodo,
+  onDelete: (todoId: string) => void
+}
+
+const Todo: FunctionComponent<Props> = ({...props}) => {
   const classes = useStyles();
+  const {todo, onDelete} = props
 
   return (
     <Card className={classes.card}>
@@ -51,7 +58,7 @@ const Todo: FunctionComponent<ITodo> = ({...todo}) => {
             </Typography>
           </Grid>
           <Grid item>
-            <TodoActionGroup />
+            <TodoActionGroup onDelete={onDelete}/>
           </Grid>
         </Grid>
       </CardContent>
