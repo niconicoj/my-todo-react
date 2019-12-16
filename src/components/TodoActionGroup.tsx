@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  onDelete: (id: string) => void
+  onDelete: React.MouseEventHandler
 }
 
 const TodoActionGroup: FunctionComponent<Props> = ({...props}) => {
@@ -35,7 +35,7 @@ const TodoActionGroup: FunctionComponent<Props> = ({...props}) => {
         </IconButton>
       </Tooltip>
       <Tooltip TransitionComponent={Zoom} title="delete">
-        <IconButton aria-label="delete" onClick={(e) => {console.log(e)}}>
+        <IconButton aria-label="delete" onClick={onDelete}>
           <DeleteForeverOutlined fontSize="large" color="error" />
         </IconButton>
       </Tooltip>

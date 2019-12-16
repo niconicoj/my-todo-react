@@ -5,11 +5,11 @@ import {
   Typography, 
   CardContent, 
   Card,
-  Box} from '@material-ui/core';
+  Box,
+  Zoom} from '@material-ui/core';
 
 import ITodo from '../models/Todo';
 import TodoActionGroup from './TodoActionGroup'
-import { todoReducer } from '../reducers/todos';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   card: {
@@ -34,35 +34,38 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   todo: ITodo,
-  onDelete: (todoId: string) => void
+  onDelete: React.MouseEventHandler
+  display: boolean
 }
 
 const Todo: FunctionComponent<Props> = ({...props}) => {
   const classes = useStyles();
-  const {todo, onDelete} = props
+  const {todo, onDelete, display} = props
 
   return (
-    <Card className={classes.card}>
-      <CardContent className={classes.cardContent}>
-        <Grid container direction="row" justify="space-between" alignItems="center">
-          <Grid item>
-            <Typography variant="h5" component="h2" className={classes.title}>
-              {todo.title}
-            </Typography>
+    <Zoom in={display}>
+      <Card className={classes.card}>
+        <CardContent className={classes.cardContent}>
+          <Grid container direction="row" justify="space-between" alignItems="center">
+            <Grid item>
+              <Typography variant="h5" component="h2" className={classes.title}>
+                {todo.title}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h4" component="h3" className={classes.title}>
+                <Box fontFamily="Monospace">
+                  00:00:00
+                </Box>
+              </Typography>
+            </Grid>
+            <Grid item>
+              <TodoActionGroup onDelete={onDelete}/>
+            </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="h4" component="h3" className={classes.title}>
-              <Box fontFamily="Monospace">
-                00:00:00
-              </Box>
-            </Typography>
-          </Grid>
-          <Grid item>
-            <TodoActionGroup onDelete={onDelete}/>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Zoom>
   );
 }
 

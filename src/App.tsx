@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 
-import AddTodoDialog from './components/AddTodoDialog'
+import AddTodoContainer from './containers/AddTodoContainer'
 import TodoContainer from './containers/TodoContainer'
 
 let theme = createMuiTheme({
@@ -70,7 +70,7 @@ const App: React.FC = () => {
         </AppBar>
         <TodoContainer/>
       </div>
-      <AddTodoDialog />
+      <AddTodoContainer />
     </ThemeProvider>
   )
 }

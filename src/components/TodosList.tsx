@@ -18,6 +18,7 @@ class TodosList extends React.Component<Props, State> {
         {todos.map( todo => (
           <Todo
           onDelete={() => onTodoClicked(todo.id)}
+          display={true}
           todo={todo}/>
         ))}
       </div>
