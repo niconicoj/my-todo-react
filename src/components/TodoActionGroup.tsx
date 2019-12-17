@@ -16,16 +16,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   onDelete: React.MouseEventHandler
+  onStart: React.MouseEventHandler
 }
 
 const TodoActionGroup: FunctionComponent<Props> = ({...props}) => {
   const classes = useStyles();
-  const { onDelete } = props
+  const { onDelete, onStart } = props
 
   return (
     <div className={classes.actionBox}>
       <Tooltip TransitionComponent={Zoom} title='start'>
-        <IconButton aria-label="start">
+        <IconButton aria-label="start" onClick={onStart}>
           <PlayCircleOutline fontSize="large" color="primary" />
         </IconButton>
       </Tooltip>

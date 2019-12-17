@@ -33,6 +33,19 @@ export function todoReducer(state: State = initialState, action: TodoAction) {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload.id)
       }
+    case ActionTypes.START_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if(todo.id !== action.payload.id){
+            return todo
+          }
+          return {
+            ...todo,
+            active: Date.now()
+          }
+        })
+      }
     default:
       return state
   }

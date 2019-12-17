@@ -5,11 +5,11 @@ import {
   Typography, 
   CardContent, 
   Card,
-  Box,
   Zoom} from '@material-ui/core';
 
 import ITodo from '../models/Todo';
 import TodoActionGroup from './TodoActionGroup'
+import Stopwatch from './Stopwatch';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   card: {
@@ -35,12 +35,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 interface Props {
   todo: ITodo,
   onDelete: React.MouseEventHandler
+  onStart: React.MouseEventHandler
   display: boolean
 }
 
 const Todo: FunctionComponent<Props> = ({...props}) => {
   const classes = useStyles();
-  const {todo, onDelete, display} = props
+  const {todo, onDelete, onStart, display} = props
 
   return (
     <Zoom in={display}>
@@ -53,14 +54,10 @@ const Todo: FunctionComponent<Props> = ({...props}) => {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h4" component="h3" className={classes.title}>
-                <Box fontFamily="Monospace">
-                  00:00:00
-                </Box>
-              </Typography>
+              <Stopwatch timerStart={todo.active} />
             </Grid>
             <Grid item>
-              <TodoActionGroup onDelete={onDelete}/>
+              <TodoActionGroup onStart={onStart} onDelete={onDelete}/>
             </Grid>
           </Grid>
         </CardContent>

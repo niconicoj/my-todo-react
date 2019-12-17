@@ -4,7 +4,8 @@ import ITodo from '../models/Todo';
 
 interface Props {
   todos: ITodo[],
-  onTodoClicked: (todoId: string) => void
+  onDelete: (todoId: string) => void
+  onStart: (todoId: string) => void
 }
 
 interface State {}
@@ -12,12 +13,13 @@ interface State {}
 class TodosList extends React.Component<Props, State> {
 
   render() {
-    const { todos, onTodoClicked } = this.props;
+    const { todos, onDelete, onStart } = this.props;
     return (
       <div>
         {todos.map( todo => (
           <Todo
-          onDelete={() => onTodoClicked(todo.id)}
+          onDelete={() => onDelete(todo.id)}
+          onStart={() => onStart(todo.id)}
           display={true}
           todo={todo}/>
         ))}
