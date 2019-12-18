@@ -41,7 +41,7 @@ class Stopwatch extends React.Component<Props, State> {
       this.setState({
         timerTime: Date.now() - timerStart
       });
-    }, 10, timerStart);
+    }, 100, timerStart);
   };
 
   stopTimer = () => {

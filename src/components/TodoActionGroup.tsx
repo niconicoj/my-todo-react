@@ -4,7 +4,10 @@ import {
   IconButton,
   Tooltip,
   Zoom} from '@material-ui/core';
-import { PlayCircleOutline, CheckCircleOutline, DeleteForeverOutlined } from '@material-ui/icons';
+import { PlayCircleOutline,
+  CheckCircleOutline,
+  DeleteForeverOutlined,
+PauseCircleOutline } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   actionBox: {
@@ -15,19 +18,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
+  active: boolean
   onDelete: React.MouseEventHandler
   onStart: React.MouseEventHandler
+  onStop: React.MouseEventHandler
 }
 
 const TodoActionGroup: FunctionComponent<Props> = ({...props}) => {
   const classes = useStyles();
-  const { onDelete, onStart } = props
+  const { active, onDelete, onStart, onStop } = props
 
   return (
     <div className={classes.actionBox}>
       <Tooltip TransitionComponent={Zoom} title='start'>
-        <IconButton aria-label="start" onClick={onStart}>
-          <PlayCircleOutline fontSize="large" color="primary" />
+        <IconButton aria-label="start" onClick={active ? onStop : onStart}>
+          { active ? <PauseCircleOutline fontSize="large" color="primary" /> : <PlayCircleOutline fontSize="large" color="primary" /> }
         </IconButton>
       </Tooltip>
       <Tooltip TransitionComponent={Zoom} title='done'>

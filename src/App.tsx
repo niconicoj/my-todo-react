@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 
 import AddTodoContainer from './containers/AddTodoContainer'
-import TodoContainer from './containers/TodoContainer'
+import TodoListContainer from './containers/TodoListContainer'
 
 let theme = createMuiTheme({
   palette: {
@@ -68,7 +68,7 @@ const App: React.FC = () => {
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
-        <TodoContainer/>
+        <TodoListContainer/>
       </div>
       <AddTodoContainer />
     </ThemeProvider>

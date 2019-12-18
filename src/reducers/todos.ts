@@ -46,6 +46,21 @@ export function todoReducer(state: State = initialState, action: TodoAction) {
           }
         })
       }
+    case ActionTypes.STOP_TODO:
+      //this is not enough, I need to also add elapsed time since active
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if(todo.id !== action.payload.id){
+            return todo
+          }
+          return {
+            ...todo,
+            elapsed: todo.elapsed + action.payload.elapsed,
+            active: undefined
+          }
+        })
+      }
     default:
       return state
   }

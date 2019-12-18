@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core/styles';
 import { 
   Grid, 
   Typography, 
@@ -11,7 +11,7 @@ import ITodo from '../models/Todo';
 import TodoActionGroup from './TodoActionGroup'
 import Stopwatch from './Stopwatch';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const styles = createStyles({
   card: {
     minWidth: 275,
     margin: 10
@@ -30,40 +30,50 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   pos: {
     marginBottom: 12,
   }
-}));
+});
 
-interface Props {
-  todo: ITodo,
-  onDelete: React.MouseEventHandler
-  onStart: React.MouseEventHandler
-  display: boolean
+interface Props extends WithStyles<typeof styles> {
+  todo: ITodo
+  handleStart: (todoId: string) => void
+  handleStop: (todoId: string, elapsed: number) => void
+  handleDelete: (todoId: string) => void
 }
 
-const Todo: FunctionComponent<Props> = ({...props}) => {
-  const classes = useStyles();
-  const {todo, onDelete, onStart, display} = props
+interface State {
 
-  return (
-    <Zoom in={display}>
-      <Card className={classes.card}>
-        <CardContent className={classes.cardContent}>
-          <Grid container direction="row" justify="space-between" alignItems="center">
-            <Grid item>
-              <Typography variant="h5" component="h2" className={classes.title}>
-                {todo.title}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Stopwatch timerStart={todo.active} />
-            </Grid>
-            <Grid item>
-              <TodoActionGroup onStart={onStart} onDelete={onDelete}/>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-    </Zoom>
-  );
 }
 
-export default Todo;
+class Todo extends React.Component<Props, State> {
+
+  render() {
+    const { classes }= this.props;
+    const { todo, handleStart, handleStop, handleDelete } = this.props
+  
+    return (
+      <Zoom in={true}>
+        <Card className={classes.card}>
+          <CardContent className={classes.cardContent}>
+            <Grid container direction="row" justify="space-between" alignItems="center">
+              <Grid item>
+                <Typography variant="h5" component="h2" className={classes.title}>
+                  {todo.title}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Stopwatch timerStart={todo.active} />
+              </Grid>
+              <Grid item>
+                <TodoActionGroup active={todo.active !== undefined}
+                onStart={() => handleStart(todo.id)}
+                onDelete={() => handleDelete(todo.id)}
+                onStop={() => {handleStop(todo.id, 1)}}/>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Zoom>
+    );
+  }
+}
+
+export default withStyles(styles)(Todo);
