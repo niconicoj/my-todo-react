@@ -4,29 +4,27 @@ import TodoAction, { ActionTypes } from "../actions/todos"
 
 export interface State {
   todos: ITodo[]
+  _increment: number
 }
 
 export const initialState: State = {
-  todos: [{
-    id: '1234',
-    status: 'inProgress',
-    title: 'todo in state',
-    elapsed: 0
-  }]
+  todos: [],
+  _increment: 0
 }
 
 export function todoReducer(state: State = initialState, action: TodoAction) {
   switch (action.type){
     case ActionTypes.ADD_TODO:
       const newTodo: ITodo = {
-        id: state.todos.length.toString(),
+        id: state._increment.toString(),
         status: 'planned',
         title: action.payload.title,
         elapsed: 0
       } 
       return {
         ...state,
-        todos: [...state.todos, newTodo]
+        todos: [...state.todos, newTodo],
+        _increment: state._increment + 1
       }
     case ActionTypes.DELETE_TODO: 
       return {

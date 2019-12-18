@@ -4,55 +4,22 @@ import {
   Box} from '@material-ui/core';
 
 interface Props {
-  timerStart?: number,
+  time: number,
 }
 
-interface State { 
-  timerTime: number
-}
+interface State {}
 
 
 class Stopwatch extends React.Component<Props, State> {
 
-  timer!: NodeJS.Timeout;
-
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      timerTime: 0
-    };
-    this.startTimer = this.startTimer.bind(this)
-
-    if(props.timerStart !== undefined) {
-      this.startTimer(props.timerStart)
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.props.timerStart !== undefined) {
-      this.startTimer(this.props.timerStart)
-    } else {
-      this.stopTimer()
-    }
-  }
-
-  startTimer = (timerStart: number) => {
-    this.timer = setInterval(() => {
-      this.setState({
-        timerTime: Date.now() - timerStart
-      });
-    }, 100, timerStart);
-  };
-
-  stopTimer = () => {
-    clearInterval(this.timer);
-  };
-
   render() {
+    let seconds = ("0" + (Math.floor(this.props.time / 1000) % 60)).slice(-2);
+    let minutes = ("0" + (Math.floor(this.props.time / 60000) % 60)).slice(-2);
+    let hours = ("0" + Math.floor(this.props.time / 3600000)).slice(-2);
     return (
       <Typography variant="h4" component="h3">
         <Box fontFamily="Monospace">
-          {this.state.timerTime}
+          {hours+":"+minutes+":"+seconds}
         </Box>
       </Typography>
     );

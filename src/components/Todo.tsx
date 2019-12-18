@@ -34,20 +34,53 @@ const styles = createStyles({
 
 interface Props extends WithStyles<typeof styles> {
   todo: ITodo
-  handleStart: (todoId: string) => void
-  handleStop: (todoId: string, elapsed: number) => void
-  handleDelete: (todoId: string) => void
+  dispatchStart: (todoId: string) => void
+  dispatchStop: (todoId: string, elapsed: number) => void
+  dispatchDelete: (todoId: string) => void
 }
 
 interface State {
-
+  timerId: number
+  time: number
 }
 
 class Todo extends React.Component<Props, State> {
 
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      timerId: 0,
+      time: props.todo.elapsed
+    }
+
+    this.handleStart = this.handleStart.bind(this)
+    this.handleStop = this.handleStop.bind(this)
+  }
+
+  handleStart = () => {
+    this.props.dispatchStart(this.props.todo.id);
+    let now = Date.now() - this.props.todo.elapsed;
+    let timer = window.setInterval(() => {
+      this.setState({
+        ...this.state,
+        time: Date.now() - now
+      });
+    }, 1000, now);
+    this.setState({
+      ...this.state,
+      timerId: timer
+    })
+  }
+
+  handleStop = () => {
+    console.log(this.props.todo.elapsed)
+    this.props.dispatchStop(this.props.todo.id, this.state.time)
+    clearInterval(this.state.timerId);
+  };
+
   render() {
     const { classes }= this.props;
-    const { todo, handleStart, handleStop, handleDelete } = this.props
+    const { todo, dispatchDelete } = this.props
   
     return (
       <Zoom in={true}>
@@ -60,13 +93,13 @@ class Todo extends React.Component<Props, State> {
                 </Typography>
               </Grid>
               <Grid item>
-                <Stopwatch timerStart={todo.active} />
+                <Stopwatch time={this.state.time}/>
               </Grid>
               <Grid item>
                 <TodoActionGroup active={todo.active !== undefined}
-                onStart={() => handleStart(todo.id)}
-                onDelete={() => handleDelete(todo.id)}
-                onStop={() => {handleStop(todo.id, 1)}}/>
+                onStart={() => this.handleStart()}
+                onDelete={() => dispatchDelete(todo.id)}
+                onStop={() => {this.handleStop()}}/>
               </Grid>
             </Grid>
           </CardContent>
