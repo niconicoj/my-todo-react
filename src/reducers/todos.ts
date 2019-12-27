@@ -54,7 +54,7 @@ export function todoReducer(state: State = initialState, action: TodoAction) {
           }
           return {
             ...todo,
-            elapsed: todo.elapsed + action.payload.elapsed,
+            elapsed: action.payload.elapsed,
             active: undefined
           }
         })

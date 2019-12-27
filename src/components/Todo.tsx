@@ -73,9 +73,9 @@ class Todo extends React.Component<Props, State> {
   }
 
   handleStop = () => {
-    console.log(this.props.todo.elapsed)
     this.props.dispatchStop(this.props.todo.id, this.state.time)
-    clearInterval(this.state.timerId);
+    clearInterval(this.state.timerId)
+    console.log(this.props.todo.elapsed)
     this.setState({timerId: undefined})
   };
 
