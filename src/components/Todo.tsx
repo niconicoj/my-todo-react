@@ -40,7 +40,7 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 interface State {
-  timerId: number
+  timerId?: number
   time: number
 }
 
@@ -49,12 +49,12 @@ class Todo extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      timerId: 0,
       time: props.todo.elapsed
     }
 
     this.handleStart = this.handleStart.bind(this)
     this.handleStop = this.handleStop.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleStart = () => {
@@ -76,11 +76,18 @@ class Todo extends React.Component<Props, State> {
     console.log(this.props.todo.elapsed)
     this.props.dispatchStop(this.props.todo.id, this.state.time)
     clearInterval(this.state.timerId);
+    this.setState({timerId: undefined})
   };
+
+  handleDelete = () => {
+    this.props.dispatchStop(this.props.todo.id, this.state.time)
+    clearInterval(this.state.timerId);
+    this.props.dispatchDelete(this.props.todo.id)
+  }
 
   render() {
     const { classes }= this.props;
-    const { todo, dispatchDelete } = this.props
+    const { todo } = this.props
   
     return (
       <Zoom in={true}>
@@ -98,7 +105,7 @@ class Todo extends React.Component<Props, State> {
               <Grid item>
                 <TodoActionGroup active={todo.active !== undefined}
                 onStart={() => this.handleStart()}
-                onDelete={() => dispatchDelete(todo.id)}
+                onDelete={() => this.handleDelete()}
                 onStop={() => {this.handleStop()}}/>
               </Grid>
             </Grid>
