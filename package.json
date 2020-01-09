@@ -34,7 +34,7 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://my-todo-api:3001",
-  "homepage": "http://vps617224.ovh.net",
+  "homepage": "http://mytodo.niconico.io",
   "eslintConfig": {
     "extends": "react-app"
   },

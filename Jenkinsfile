@@ -4,7 +4,8 @@ pipeline {
       image 'node:lts-alpine'
       args '''-p 3000:3000
 --network my-todo-network
---hostname todo-app'''
+--hostname todo-app
+-e "VIRTUAL_HOST=mytodo.niconico.io"'''
     }
 
   }
@@ -20,6 +21,5 @@ pipeline {
         sh 'npm run start'
       }
     }
-
   }
 }
