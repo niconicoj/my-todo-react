@@ -33,6 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "proxy",
   "homepage": "http://mytodo.niconico.io",
   "eslintConfig": {
     "extends": "react-app"
