@@ -6,7 +6,8 @@ pipeline {
 --network default_network
 --hostname todo-app
 --network-alias=mytodo.niconico.io
--e "VIRTUAL_HOST=mytodo.niconico.io"'''
+-e "VIRTUAL_HOST=mytodo.niconico.io"
+-e "VIRTUAL_PORT=3000"'''
     }
 
   }
