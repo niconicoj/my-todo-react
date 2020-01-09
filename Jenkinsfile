@@ -3,8 +3,9 @@ pipeline {
     docker {
       image 'node:lts-alpine'
       args '''-p 3000:3000
---network my-todo-network
+--network default_network
 --hostname todo-app
+--network-alias=mytodo.niconico.io
 -e "VIRTUAL_HOST=mytodo.niconico.io"'''
     }
 
